@@ -41,8 +41,8 @@ const notifications = [
   }
 ];
 
-export const NotificationsPage: React.FC = () => {
-  const getNotificationIcon = (type: string) => {
+export default function NotificationsPage() {
+  const getNotificationIcon = (type) => {
     switch (type) {
       case 'message':
         return <MessageCircle size={16} className="text-primary-600" />;
@@ -54,27 +54,31 @@ export const NotificationsPage: React.FC = () => {
         return <Bell size={16} className="text-gray-600" />;
     }
   };
-  
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
-          <p className="text-gray-600">Stay updated with your network activity</p>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Notifications
+          </h1>
+          <p className="text-gray-600">
+            Stay updated with your network activity
+          </p>
         </div>
-        
+
         <Button variant="outline" size="sm">
           Mark all as read
         </Button>
       </div>
-      
+
       <div className="space-y-4">
         {notifications.map(notification => (
           <Card
             key={notification.id}
-            className={`transition-colors duration-200 ${
+            className={
               notification.unread ? 'bg-primary-50' : ''
-            }`}
+            }
           >
             <CardBody className="flex items-start p-4">
               <Avatar
@@ -83,21 +87,24 @@ export const NotificationsPage: React.FC = () => {
                 size="md"
                 className="flex-shrink-0 mr-4"
               />
-              
+
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-gray-900">
                     {notification.user.name}
                   </span>
+
                   {notification.unread && (
-                    <Badge variant="primary" size="sm" rounded>New</Badge>
+                    <Badge variant="primary" size="sm" rounded>
+                      New
+                    </Badge>
                   )}
                 </div>
-                
+
                 <p className="text-gray-600 mt-1">
                   {notification.content}
                 </p>
-                
+
                 <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
                   {getNotificationIcon(notification.type)}
                   <span>{notification.time}</span>
@@ -109,4 +116,4 @@ export const NotificationsPage: React.FC = () => {
       </div>
     </div>
   );
-};
+}
